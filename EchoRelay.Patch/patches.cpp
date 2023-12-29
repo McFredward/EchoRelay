@@ -315,6 +315,19 @@ VOID PatchNoOvrRequiresSpectatorStream()
 }
 
 /// <summary>
+/// Bypassing the subroutine whichs turns off the mic for Demo accounts (noovr)
+/// </summary>
+/// <returns>None</returns>
+VOID PatchNoOvrMic()
+{
+    // Patch "-noovr requires -spectatorstream" to allow us to use -noovr independently.
+    BYTE pbPatch[] = {
+        0x90, 0x90
+    };
+    ProcessMemcpy(EchoVR::g_GameBaseAddress + 0x109AD6, pbPatch, sizeof(pbPatch));
+}
+
+/// <summary>
 /// Patches the dead lock monitor, which monitors threads to ensure they have not stopped processing. If one does, it triggers a fatal error.
 /// This patch is provided to ensure breakpoints set during testing do not trigger the deadlock monitor, thereby killing the process.
 /// </summary>
@@ -586,6 +599,7 @@ VOID Initialize()
 
     // Run some startup patches
     PatchNoOvrRequiresSpectatorStream();
+    PatchNoOvrMic();
 
     // Patch out the deadlock monitor thread's validation routine if we're compiling in debug mode, as this will panic from process suspension.
 #if _DEBUG

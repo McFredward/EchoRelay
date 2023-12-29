@@ -169,7 +169,7 @@ namespace EchoRelay.Core.Server.Services.Login
             if (account == null)
             {
                 // Create a default username for this user.
-                string displayName = request.UserId.PlatformCode == PlatformCode.DMO ? "Anonymous [DEMO]" : $"User [{RandomNumberGenerator.GetInt32(int.MaxValue).ToString("X")}]";
+                string displayName = request.UserId.PlatformCode == PlatformCode.DMO ? "Anonymous" : $"User [{RandomNumberGenerator.GetInt32(int.MaxValue).ToString("X")}]";
 
                 // Create an account for this user id. We use the platform identifier string as the display name.
                 account = new AccountResource(request.UserId, displayName, true, true, true);
@@ -220,8 +220,8 @@ namespace EchoRelay.Core.Server.Services.Login
                         displayNameOverride = displayNameOverride.Substring(0, 20);
 
                     // If this is a demo account, wrap the name for distinction
-                    if (account.AccountIdentifier.PlatformCode == PlatformCode.DMO)
-                        displayNameOverride = $"{displayNameOverride} [DEMO]";
+                    //if (account.AccountIdentifier.PlatformCode == PlatformCode.DMO)
+                    //    displayNameOverride = $"{displayNameOverride} [DEMO]";
 
                     account.Profile.SetDisplayName(displayNameOverride);
                 }

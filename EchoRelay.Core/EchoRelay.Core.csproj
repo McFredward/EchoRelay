@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <RepositoryUrl>https://github.com/Xenomega/EchoRelay</RepositoryUrl>
     <Authors>$(Authors)</Authors>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
